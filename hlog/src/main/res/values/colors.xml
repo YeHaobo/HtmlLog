@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="error">#F56C6C</color>
+    <color name="warning">#E6A23C</color>
+    <color name="success">#67C23A</color>
+    <color name="info">#909399</color>
+</resources>
