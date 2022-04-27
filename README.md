@@ -6,11 +6,11 @@ Android日志记录工具（当前版本2.0）
 |HTML类型|TXT类型|
 |:---:|----|
 |![](/HTML.png "HTML类型")|![](/TXT.png "TXT类型")|
+
 ***
 
 ### 依赖
 （1）在Project的build.gradle文件中添加
-
 ```java
   allprojects {
     repositories {
@@ -20,7 +20,6 @@ Android日志记录工具（当前版本2.0）
     }
   }
 ```
-
 （2）在app的build.gradle文件中添加
 ```java
   dependencies {
@@ -30,27 +29,31 @@ Android日志记录工具（当前版本2.0）
   }
 ```
 
+### 权限
+Android6.0+需要动态获取以下权限
+```java
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+```
+
 ### 初始化
+在当前项目的 **application** 中添加
+```java
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        //配置选项
+        LogConfig config = LogConfig
+                .Create()
+                .fileType(FileType.TXT)
+                .recordCrash(true)
+                .saveType(SaveType.SPLIT_DAY)
+                .imgSize(new Size(150,0));
+        //初始化
+        HLog.initialize(getApplicationContext(), config);
+    }
+```
 _注意：initialize(Context,LogConfig);中的 **Context** 必须为 **applicationContext** ,否则可能引发内存泄漏。_
-#### 普通配置
-在当前项目的application中添加
-```java
-  HLog.initialize(getApplicationContext(), LogConfig.Create());
-```
-#### 自定义配置
-```java
-  //自定义日志记录配置
-  LogConfig config = LogConfig
-      .Create()
-      .fileType(FileType.HTML)
-      .recordCrash(true)
-      .saveType(SaveType.SPLIT_DAY)
-      ...;
-  //初始化
-  HLog.initialize(getApplicationContext(), config);
-```
-#### 自定义属性
-_注意：若使用FileType.TXT时，图片写入和日志文本样式功能将会失效_
 
 | 方法 | 作用 | 参数说明 |
 | :-----------------------------: | :--------------------: | :-----: |
@@ -72,14 +75,8 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式功能将�
 | imgSize(Size) | 图片大小 | new Size(360,0)(默认)<br/>若宽或高为0时将启用自动判断 |
 | imgMargin(int) | 图片边距 |  0（默认） |
 
-### 权限
-Android6.0+需要动态获取以下权限
-```java
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-```
+_注意：若使用FileType.TXT时，图片写入和日志文本样式的配置将会失效_
 
-### 开始使用
 #### 记录日志
 ```java
   //INFO类型日志
