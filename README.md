@@ -148,3 +148,15 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
   });
 ```
 
+### 问题及其他
+HLog内部使用了 implementation 'com.android.support:support-v4:28.0.0' 包，项目集成时可能会有冲突。
+解决：
+```java
+dependencies {
+    ... ...
+    implementation 'com.github.YeHaobo:HtmlLog:2.0', {
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    ... ...
+}
+```
