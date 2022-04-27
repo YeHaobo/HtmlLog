@@ -1,7 +1,10 @@
 # HtmlLog
-Android日志记录工具（当前版本2.0）
+Android日志记录工具（当前版本2.2）
 
-分类型手动记录应用日志。日志文件可以是txt和html格式。html格式下可以穿插图片。日志目录结构分时间、类型、时间类型、类型时间。包含按条件查找指定日志文件，进行查找删除操作。可开启崩溃主动记录，在应用崩溃时自动记录当前发生的异常。 
+1、分类型记录应用日志，目录结构分时间、类型、时间类型、类型时间。  
+2、日志文件可以是txt和html格式，html格式下可以穿插图片。  
+3、包含按条件查找指定日志文件，进行查找删除操作。  
+4、可开启崩溃主动记录，在应用崩溃时自动记录当前发生的异常并回调。   
 
 |HTML类型|TXT类型|
 |:---:|----|
@@ -24,33 +27,34 @@ Android日志记录工具（当前版本2.0）
 ```java
   dependencies {
     ... ...
-    implementation 'com.github.YeHaobo:HtmlLog:2.0'
+    implementation 'com.android.support:support-v4:28.0.0'//v4
+    implementation 'com.github.YeHaobo:HtmlLog:2.2'//HtmlLog
     ... ...
   }
 ```
 
 ### 权限
-Android6.0+需要动态获取以下权限
+（1）Android6.0+需要动态获取以下权限
 ```java
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
 
 ### 初始化
-在当前项目的 **application** 中添加
+（1）在当前项目的 **application** 中初始化
 ```java
     @Override
     public void onCreate() {
         super.onCreate();
         ... ...
-        //配置选项
+        //实例配置
         LogConfig config = LogConfig
                 .Create()
                 .fileType(FileType.TXT)
                 .recordCrash(true)
                 .saveType(SaveType.SPLIT_DAY)
                 .imgSize(new Size(150,0));
-        //初始化
+        //初始化HtmlLog
         HLog.initialize(getApplicationContext(), config);
         ... ...
     }
@@ -151,20 +155,20 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
 ```
 
 ### 问题及其他
-HLog内部使用了 implementation 'com.android.support:support-v4:28.0.0' 包，项目集成时可能会有冲突。
+HLog内部使用了 v4 包，旧版本在集成过程中可能会有冲突，以下是解决方案。
 
-与support冲突解决：
+（1）与support冲突解决：
 在 app 的 build.gradle 中的使用
 ```java
 dependencies {
     ... ...
-    implementation 'com.github.YeHaobo:HtmlLog:2.0', {
+    implementation 'com.github.YeHaobo:HtmlLog:2.2', {
         exclude group: 'com.android.support', module: 'support-v4'
     }
     ... ...
 }
 ```
-与androidX冲突解决：
+（2）与androidX冲突解决：
 在Project 的 gradle.properties 文件中添加
 ```java
     android.useAndroidX=true
