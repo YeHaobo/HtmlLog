@@ -162,7 +162,7 @@ HLog内部使用了 v4 包，旧版本在集成过程中可能会有冲突，以
 ```java
 dependencies {
     ... ...
-    implementation 'com.github.YeHaobo:HtmlLog:2.2', {
+    implementation 'com.github.YeHaobo:HtmlLog:X.X', {
         exclude group: 'com.android.support', module: 'support-v4'
     }
     ... ...
