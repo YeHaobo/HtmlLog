@@ -151,7 +151,8 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
 ### 问题及其他
 HLog内部使用了 implementation 'com.android.support:support-v4:28.0.0' 包，项目集成时可能会有冲突。
 
-解决：
+与support冲突解决：
+在 app 的 build.gradle 中的使用
 ```java
 dependencies {
     ... ...
@@ -161,3 +162,10 @@ dependencies {
     ... ...
 }
 ```
+与androidX冲突解决：
+在Project 的 gradle.properties 文件中添加
+```java
+    android.useAndroidX=true
+    android.enableJetifier=true
+```
+
