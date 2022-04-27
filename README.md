@@ -42,6 +42,7 @@ Android6.0+需要动态获取以下权限
     @Override
     public void onCreate() {
         super.onCreate();
+        ... ...
         //配置选项
         LogConfig config = LogConfig
                 .Create()
@@ -51,6 +52,7 @@ Android6.0+需要动态获取以下权限
                 .imgSize(new Size(150,0));
         //初始化
         HLog.initialize(getApplicationContext(), config);
+        ... ...
     }
 ```
 _注意：initialize(Context,LogConfig);中的 **Context** 必须为 **applicationContext** ,否则可能引发内存泄漏。_
@@ -60,8 +62,8 @@ _注意：initialize(Context,LogConfig);中的 **Context** 必须为 **applicati
 | logTimeFormat(SimpleDateFormat) | 日志时间格式 | yyyy-MM-dd（默认） |
 | recordCrash(boolean) | 是否开启崩溃自动记录 | true（默认） |
 | crashCallBack(CrashCallBack) | 应用崩溃回调 | CrashCallBack</br>null（默认） |
-| fileType(FileType) | 文件类型 | FileType.TXT</br>FileType.HTML（默认） |
-| saveType(SaveType) | 文件存储类型 | SaveType.ONLY_ONE单个文件</br>SaveType.SPLIT_TYPE分类型</br>SaveType.SPLIT_DAY分日期（默认）</br>SaveType.SPLIT_DAY_AND_TYPE分日期分类型</br>SaveType.SPLIT_TYPE_AND_DAY分类型分日期 |
+| fileType(FileType) | 文件类型 | TXT</br>HTML（默认） |
+| saveType(SaveType) | 文件存储类型 | ONLY_ONE单个文件</br>SPLIT_TYPE分类型</br>SPLIT_DAY分日期（默认）</br>SPLIT_DAY_AND_TYPE分日期分类型</br>SPLIT_TYPE_AND_DAY分类型分日期 |
 | rootPath(String) | 存储路径 | /storage/sdcard0/HtmlLog/（默认） |
 | maxDay(int) | 日志保留天数 | 7（默认）必须大于0 |
 | errorColor(int) | error类型文本颜色 | #F56C6C（默认） |
@@ -71,8 +73,8 @@ _注意：initialize(Context,LogConfig);中的 **Context** 必须为 **applicati
 | txtSize(int) | 字体大小 | 13（默认） |
 | txtWeight(int) | 字体粗细 | 600（默认） |
 | txtMargin(int) | 文本边距 | 0（默认） |
-| imgType(String) | 图片展示类型 | ImgType.NONE宽高不变</br>ImgType.CONTAIN缩放图片,长边完全显示</br>ImgType.FILL完全适应</br>ImgType.COVER缩放图片，短边完全显示</br>ImgType.SCALE_DOWN宽高小于设置使用NONE否则CONTAIN |
-| imgSize(Size) | 图片大小 | new Size(360,0)(默认)<br/>若宽或高为0时将启用自动判断 |
+| imgType(String) | 图片展示类型 | NONE宽高不变</br>CONTAIN缩放图片,长边完全显示</br>FILL完全适应</br>COVER缩放图片，短边完全显示</br>SCALE_DOWN宽高小于设置使用NONE否则CONTAIN |
+| imgSize(Size) | 图片大小 | Size(360,0)(默认)<br/>若宽或高为0时将启用自动判断 |
 | imgMargin(int) | 图片边距 |  0（默认） |
 
 _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置将会失效_
