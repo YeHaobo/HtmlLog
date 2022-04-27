@@ -5,7 +5,7 @@ Android日志记录工具（当前版本2.0）
 
 ***
 
-## 依赖
+### 依赖
 （1）在Project的build.gradle文件中添加
 
 ```java
@@ -29,12 +29,12 @@ Android日志记录工具（当前版本2.0）
 
 ### 初始化
 _注意：initialize(Context,LogConfig);中的 **Context** 必须为 **applicationContext** ,否则可能引发内存泄漏。_
-### 普通配置
+#### 普通配置
 在当前项目的application中添加
 ```java
   HLog.initialize(getApplicationContext(), LogConfig.Create());
 ```
-### 自定义配置
+#### 自定义配置
 ```java
   //自定义日志记录配置
   LogConfig config = LogConfig
@@ -69,15 +69,14 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式功能将�
 | imgSize(Size) | 图片大小 | new Size(360,0)(默认)<br/>若宽或高为0时将启用自动判断 |
 | imgMargin(int) | 图片边距 |  0（默认） |
 
-#### 开始使用
-**使用前需要先获取权限**
+### 权限
+Android6.0+需要动态获取以下权限
 ```java
-
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
 ```
 
+### 开始使用
 #### 记录日志
 ```java
   //INFO类型日志
@@ -134,12 +133,15 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式功能将�
 
     }
   });
-  HLog.i(TAG, "This is INFO message", new LogCallBack() {
+  ... ...
+  LogConfig config = LogConfig.Create().crashCallBack(new CrashCallBack() {
     @Override
     public void callBack(File file) {
-
+    
+      //这里回调在子线程，要更新UI需要切回主/UI线程
+      //file:应用崩溃异常写入的文件
+      
     }
-      });
-  ... ...
+  });
 ```
 
