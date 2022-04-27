@@ -77,7 +77,7 @@ _注意：initialize(Context,LogConfig);中的 **Context** 必须为 **applicati
 
 _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置将会失效_
 
-#### 记录日志
+### 记录日志
 ```java
   //INFO类型日志
   HLog.i("INFO","This is INFO message");
@@ -94,7 +94,8 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
   //插入图片
   HLog.i(BitmapFactory.decodeResource(getResources(),R.mipmap.log));
 ```
-#### 获取日志
+
+### 获取日志
 ```java
   //获取所有日志文件
   List<File> fileList1 = HLog.getLogFile();
@@ -108,7 +109,8 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
   //获取Date这一天内LogType.ERROR类型的所有日志文件
   List<File> fileList4 = HLog.getLogFile(LogType.ERROR,new Date(System.currentTimeMillis()));
 ```
-#### 清除日志
+
+### 清除日志
 ```java
   //清除所有日志文件
   boolean isSuccess1 = HLog.clearLogFile();
@@ -122,7 +124,8 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
   //清除Date这一天内LogType.ERROR类型的所有日志文件
   boolean isSuccess4 = HLog.clearLogFile(LogType.ERROR,new Date(System.currentTimeMillis()));
 ```
-#### 异步回调
+
+### 异步回调
 ```java
   HLog.i(BitmapFactory.decodeResource(getResources(), R.mipmap.log), new LogCallBack() {
     @Override
