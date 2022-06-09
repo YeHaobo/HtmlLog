@@ -28,7 +28,7 @@ Android日志记录工具（当前版本2.2）
   dependencies {
     ... ...
     implementation 'com.android.support:support-v4:28.0.0'//v4
-    implementation 'com.github.YeHaobo:HtmlLog:2.2'//HtmlLog
+    implementation 'com.github.YeHaobo:HtmlLog:2.3'//HtmlLog
     ... ...
   }
 ```
@@ -137,7 +137,7 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
     @Override
     public void callBack(File file) {
 
-      //这里回调在子线程，要更新UI需要切回主/UI线程
+      //当前回调在 主/UI 线程
       //file:写入日志的文件
 
     }
@@ -147,7 +147,7 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
     @Override
     public void callBack(File file) {
     
-      //这里回调在子线程，要更新UI需要切回主/UI线程
+      //当前回调在 主/UI 线程
       //file:应用崩溃异常写入的文件
       
     }
