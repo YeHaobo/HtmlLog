@@ -1,5 +1,7 @@
 package com.yhb.hlog.controller;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import com.yhb.hlog.expose.LogCallBack;
 import com.yhb.hlog.config.LogConfig;
@@ -17,9 +19,14 @@ import java.util.List;
 public class FileController {
     /**配置*/
     private LogConfig logConfig;
+
+    /**主/UI 线程Handler*/
+    private Handler mainHandler;
+
     /**构造*/
     public FileController(LogConfig logConfig) {
         this.logConfig = logConfig;
+        this.mainHandler = new Handler(Looper.getMainLooper());
     }
 
     /**文件夹创建*/
@@ -118,18 +125,24 @@ public class FileController {
     }
 
     /**写入日志（需要子线程中执行）*/
-    public void write(String logType, String msg, LogCallBack callBack) {
+    public void write(String logType, String msg, final LogCallBack callBack) {
         try{
-            File file = beforeWrite(logType);
+            final File file = beforeWrite(logType);
             RandomAccessFile raf = new RandomAccessFile(file, "rwd");
             raf.seek(raf.length());
             raf.write(msg.getBytes());
             raf.close();
-            if(callBack != null) callBack.callBack(file);
+            if(callBack != null){
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.callBack(file);
+                    }
+                });
+            }
         }catch (Exception e){
-            Log.e(HLog.TAG,"Log writing failure");
+            Log.e(HLog.TAG,"Log writing failure " + e.toString());
             e.printStackTrace();
-            if(callBack != null) callBack.callBack(null);
         }
     }
 
