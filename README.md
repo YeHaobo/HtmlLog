@@ -28,7 +28,7 @@ Android日志记录工具
   dependencies {
     ... ...
     implementation 'com.android.support:support-v4:28.0.0'//v4
-    implementation 'com.github.YeHaobo:HtmlLog:2.3'//HtmlLog
+    implementation 'com.github.YeHaobo:HtmlLog:2.4'//HtmlLog
     ... ...
   }
 ```
@@ -66,6 +66,7 @@ _注意：initialize(Context,LogConfig);中的 **Context** 必须为 **applicati
 | logTimeFormat(SimpleDateFormat) | 日志时间格式 | yyyy-MM-dd（默认） |
 | recordCrash(boolean) | 是否开启崩溃自动记录 | true（默认） |
 | crashCallBack(CrashCallBack) | 应用崩溃回调 | CrashCallBack</br>null（默认） |
+| isDebug | 是否开启Debug模式，</br>关闭后Logcat将不会打印日志内容 | true（默认） |
 | fileType(FileType) | 文件类型 | TXT</br>HTML（默认） |
 | saveType(SaveType) | 文件存储类型 | ONLY_ONE单个文件</br>SPLIT_TYPE分类型</br>SPLIT_DAY分日期（默认）</br>SPLIT_DAY_AND_TYPE分日期分类型</br>SPLIT_TYPE_AND_DAY分类型分日期 |
 | rootPath(String) | 存储路径 | /storage/sdcard0/HtmlLog/（默认） |
