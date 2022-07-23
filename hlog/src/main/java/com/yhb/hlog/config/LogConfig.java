@@ -22,6 +22,9 @@ public class LogConfig {
     /**崩溃主动回调接口*/
     private CrashCallBack crashCallBack;
 
+    /**是否开启Debug模式，该模式下logcat将会打印日志内容*/
+    private boolean isDebug = true;
+
     /**文件类型*/
     private String fileType = FileType.HTML;
     /**文件分批方式*/
@@ -70,9 +73,13 @@ public class LogConfig {
         this.recordCrash = recordCrash;
         return this;
     }
-
     public LogConfig crashCallBack(CrashCallBack crashCallBack){
         this.crashCallBack = crashCallBack;
+        return this;
+    }
+
+    public LogConfig isDebug(boolean isDebug){
+        this.isDebug = isDebug;
         return this;
     }
 
@@ -150,6 +157,10 @@ public class LogConfig {
     }
     public CrashCallBack getCrashCallBack() {
         return crashCallBack;
+    }
+
+    public boolean isDebug() {
+        return isDebug;
     }
 
     public String getFileType() {

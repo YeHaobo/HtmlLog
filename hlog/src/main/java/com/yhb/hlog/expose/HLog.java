@@ -2,6 +2,7 @@ package com.yhb.hlog.expose;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import com.yhb.hlog.config.LogConfig;
 import com.yhb.hlog.crash.CrashHandler;
 import com.yhb.hlog.controller.LogController;
@@ -13,8 +14,10 @@ import java.util.List;
 /**日志工具*/
 public class HLog{
     public static final String TAG = "HLog";
+    private static boolean isDebug = true;
     private static LogController logController;
     public static void initialize(Context applicationContext, LogConfig logConfig){
+        isDebug = logConfig.isDebug();
         logController = new LogController(applicationContext,logConfig);
         if(logConfig.isRecordCrash()) CrashHandler.initialize(logConfig.getCrashCallBack());
     }
@@ -23,12 +26,14 @@ public class HLog{
         e(tag, msg, null);
     }
     public static void e(String tag, String msg, LogCallBack callback) {
+        if(isDebug) Log.e(tag,msg);
         logController.write(LogType.ERROR,tag,msg,null,callback);
     }
     public static void e(Bitmap bitmap) {
         e(bitmap, null);
     }
     public static void e(Bitmap bitmap, LogCallBack callBack) {
+        if(isDebug) Log.e(TAG,"write bitmap (size = " + bitmap.getWidth() + "x" + bitmap.getHeight()+")");
         logController.write(LogType.ERROR,"ERROR-IMG",null,bitmap,callBack);
     }
 
@@ -36,12 +41,14 @@ public class HLog{
         w(tag, msg, null);
     }
     public static void w(String tag, String msg, LogCallBack callback) {
+        if(isDebug) Log.e(tag,msg);
         logController.write(LogType.WARNING,tag,msg,null,callback);
     }
     public static void w(Bitmap bitmap) {
         w(bitmap, null);
     }
     public static void w(Bitmap bitmap, LogCallBack callBack) {
+        if(isDebug) Log.e(TAG,"write bitmap (size = " + bitmap.getWidth() + "x" + bitmap.getHeight()+")");
         logController.write(LogType.WARNING,"WARNING-IMG",null,bitmap,callBack);
     }
 
@@ -49,12 +56,14 @@ public class HLog{
         s(tag, msg, null);
     }
     public static void s(String tag, String msg, LogCallBack callback) {
+        if(isDebug) Log.e(tag,msg);
         logController.write(LogType.SUCCESS,tag,msg,null,callback);
     }
     public static void s(Bitmap bitmap) {
         s(bitmap, null);
     }
     public static void s(Bitmap bitmap, LogCallBack callBack) {
+        if(isDebug) Log.e(TAG,"write bitmap (size = " + bitmap.getWidth() + "x" + bitmap.getHeight()+")");
         logController.write(LogType.SUCCESS,"SUCCESS-IMG",null,bitmap,callBack);
     }
 
@@ -62,12 +71,14 @@ public class HLog{
         i(tag, msg, null);
     }
     public static void i(String tag, String msg, LogCallBack callback) {
+        if(isDebug) Log.e(tag,msg);
         logController.write(LogType.INFO,tag,msg,null,callback);
     }
     public static void i(Bitmap bitmap) {
         i(bitmap, null);
     }
     public static void i(Bitmap bitmap, LogCallBack callBack) {
+        if(isDebug) Log.e(TAG,"write bitmap (size = " + bitmap.getWidth() + "x" + bitmap.getHeight()+")");
         logController.write(LogType.INFO,"INFO-IMG",null,bitmap,callBack);
     }
 
