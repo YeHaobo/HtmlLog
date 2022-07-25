@@ -2,6 +2,8 @@ package com.yhb.hlog.controller;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Base64;
 import android.util.Size;
 import com.yhb.hlog.expose.LogCallBack;
@@ -13,26 +15,28 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**日志控制类*/
 public class LogController {
+    /**日志写入的线程名*/
+    private static final String NAME = "HLog";
     /**application上下文*/
     private Context applicationContext;
     /**配置信息*/
     private LogConfig logConfig;
     /**文件控制器*/
     private FileController fileController;
-    /**单核阻塞式线程池*/
-    private ExecutorService singleThreadExecutor;
+    /**Handler*/
+    private Handler handler;
 
     /**构造*/
     public LogController(Context applicationContext, LogConfig logConfig) {
         this.applicationContext = applicationContext;
         this.logConfig = logConfig;
         this.fileController = new FileController(logConfig);
-        this.singleThreadExecutor = Executors.newSingleThreadExecutor();
+        HandlerThread handlerThread = new HandlerThread(NAME);
+        handlerThread.start();
+        this.handler = new Handler(handlerThread.getLooper());
     }
 
     /**普通文本*/
@@ -106,7 +110,7 @@ public class LogController {
                 if(!str.isEmpty()) fileController.write(logType, str + "\n", callBack);
             }
         };
-        singleThreadExecutor.execute(runnable);
+        handler.post(runnable);
     }
 
     /**获取日志*/
