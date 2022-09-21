@@ -107,5 +107,5 @@ public class HLog{
     public static boolean clearLogFile(String logType, Date date) {
         return logController.logClear(logType,date);
     }
-    
+
 }
