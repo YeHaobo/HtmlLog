@@ -71,6 +71,7 @@ _注意：initialize(Context,LogConfig);中的 **Context** 必须为 **applicati
 | saveType(SaveType) | 文件存储类型 | ONLY_ONE单个文件</br>SPLIT_TYPE分类型</br>SPLIT_DAY分日期（默认）</br>SPLIT_DAY_AND_TYPE分日期分类型</br>SPLIT_TYPE_AND_DAY分类型分日期 |
 | rootPath(String) | 存储路径 | /storage/sdcard0/HtmlLog/（默认） |
 | maxDay(int) | 日志保留天数 | 7（默认）必须大于0 |
+| charsetName(String) | 编码格式 | UTF-8（默认） |
 | errorColor(int) | error类型文本颜色 | #F56C6C（默认） |
 | warningColor(int) | warning类型文本颜色 | #E6A23C（默认） |
 | successColor(int) | success类型文本颜色 | #67C23A（默认） |
