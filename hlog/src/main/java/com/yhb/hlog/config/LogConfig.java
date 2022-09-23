@@ -34,6 +34,9 @@ public class LogConfig {
     /**保留天数（单位：天，单个日志记录无效）*/
     private int maxDay = 7;
 
+    /**编码格式*/
+    private String charsetName = "UTF-8";
+
     /**错误颜色*/
     private int errorColor = R.color.error;
     /**警告颜色*/
@@ -97,6 +100,11 @@ public class LogConfig {
     }
     public LogConfig maxDay(int maxDay) {
         this.maxDay = maxDay;
+        return this;
+    }
+
+    public LogConfig charsetName(String charsetName){
+        this.charsetName = charsetName;
         return this;
     }
 
@@ -174,6 +182,10 @@ public class LogConfig {
     }
     public int getMaxDay() {
         return maxDay;
+    }
+
+    public String getCharsetName(){
+        return charsetName;
     }
 
     public int getErrorColor() {

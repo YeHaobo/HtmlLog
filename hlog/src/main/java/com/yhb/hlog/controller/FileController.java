@@ -130,7 +130,7 @@ public class FileController {
             final File file = beforeWrite(logType);
             RandomAccessFile raf = new RandomAccessFile(file, "rwd");
             raf.seek(raf.length());
-            raf.write(msg.getBytes());
+            raf.write(msg.getBytes(logConfig.getCharsetName()));
             raf.close();
             if(callBack != null){
                 mainHandler.post(new Runnable() {
