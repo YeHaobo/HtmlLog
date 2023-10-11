@@ -2,6 +2,7 @@ package com.yhb.hlog.expose;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 import com.yhb.hlog.config.LogConfig;
 import com.yhb.hlog.crash.CrashHandler;
@@ -26,7 +27,7 @@ public class HLog{
         e(tag, msg, null);
     }
     public static void e(String tag, String msg, LogCallBack callback) {
-        if(isDebug) Log.e(tag,msg);
+        if(isDebug && !TextUtils.isEmpty(msg)) Log.e(tag,msg);
         logController.write(LogType.ERROR,tag,msg,null,callback);
     }
     public static void e(Bitmap bitmap) {
@@ -41,7 +42,7 @@ public class HLog{
         w(tag, msg, null);
     }
     public static void w(String tag, String msg, LogCallBack callback) {
-        if(isDebug) Log.e(tag,msg);
+        if(isDebug && !TextUtils.isEmpty(msg)) Log.e(tag,msg);
         logController.write(LogType.WARNING,tag,msg,null,callback);
     }
     public static void w(Bitmap bitmap) {
@@ -56,7 +57,7 @@ public class HLog{
         s(tag, msg, null);
     }
     public static void s(String tag, String msg, LogCallBack callback) {
-        if(isDebug) Log.e(tag,msg);
+        if(isDebug && !TextUtils.isEmpty(msg)) Log.e(tag,msg);
         logController.write(LogType.SUCCESS,tag,msg,null,callback);
     }
     public static void s(Bitmap bitmap) {
@@ -71,7 +72,7 @@ public class HLog{
         i(tag, msg, null);
     }
     public static void i(String tag, String msg, LogCallBack callback) {
-        if(isDebug) Log.e(tag,msg);
+        if(isDebug && !TextUtils.isEmpty(msg)) Log.e(tag,msg);
         logController.write(LogType.INFO,tag,msg,null,callback);
     }
     public static void i(Bitmap bitmap) {
