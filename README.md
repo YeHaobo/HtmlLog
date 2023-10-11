@@ -28,7 +28,7 @@ Android日志记录工具
   dependencies {
     ... ...
     implementation 'com.android.support:support-v4:28.0.0'//v4
-    implementation 'com.github.YeHaobo:HtmlLog:2.6'//HtmlLog
+    implementation 'com.github.YeHaobo:HtmlLog:2.7'//HtmlLog
     ... ...
   }
 ```
