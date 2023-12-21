@@ -27,8 +27,8 @@ Android日志记录工具
 ```java
   dependencies {
     ... ...
-    implementation 'com.android.support:support-v4:28.0.0'//v4 AndroidX项目不用添加
-    implementation 'com.github.YeHaobo:HtmlLog:2.7'//HtmlLog
+    implementation 'com.android.support:support-v4:28.0.0'//v4 AndroidX项目无需添加
+    implementation 'com.github.YeHaobo:HtmlLog:2.8'//HtmlLog
     ... ...
   }
 ```
@@ -38,6 +38,7 @@ Android日志记录工具
 ```java
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>Android11+版本按需求添加授权
 ```
 
 ### 初始化
@@ -157,6 +158,7 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
 ```
 
 ### 问题及其他
-**细节请下载项目查阅，项目内注释齐全**
+**（1）出现无法记录日志或应用崩溃时请检查是否授予了完整的权限，另外android11以上的版本请检查 “所有文件访问权限” 是否需要和申请**  
+**（2）项目细节解释请下载项目查阅，项目内注释齐全**  
 
 
