@@ -27,14 +27,14 @@ Android日志记录工具
 ```java
   dependencies {
     ... ...
-    implementation 'com.android.support:support-v4:28.0.0'//v4
+    implementation 'com.android.support:support-v4:28.0.0'//v4 AndroidX项目不用添加
     implementation 'com.github.YeHaobo:HtmlLog:2.7'//HtmlLog
     ... ...
   }
 ```
 
 ### 权限
-（1）Android6.0+需要动态获取以下权限
+（1）Android6.0+注意权限的动态获取
 ```java
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -157,23 +157,6 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
 ```
 
 ### 问题及其他
-HLog内部使用了 v4 包，旧版本在集成过程中可能会有冲突，以下是解决方案。
+**细节请下载项目查阅，项目内注释齐全**
 
-（1）与support冲突解决：
-在 app 的 build.gradle 中的使用
-```java
-dependencies {
-    ... ...
-    implementation 'com.github.YeHaobo:HtmlLog:X.X', {
-        exclude group: 'com.android.support', module: 'support-v4'
-    }
-    ... ...
-}
-```
-（2）与androidX冲突解决：
-在Project 的 gradle.properties 文件中添加
-```java
-    android.useAndroidX=true
-    android.enableJetifier=true
-```
 
