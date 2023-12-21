@@ -36,9 +36,9 @@ Android日志记录工具
 ### 权限
 （1）Android6.0+注意权限的动态获取
 ```java
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>Android11+版本按需求添加授权
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>6.0+必须
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>6.0+必须
+<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>11.0+版本按需添加授权
 ```
 
 ### 初始化
