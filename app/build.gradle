@@ -7,8 +7,8 @@ android {
         applicationId "com.yhb.htmllog"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 11
-        versionName "2.9"
+        versionCode 12
+        versionName "3.0"
     }
 
     buildTypes {
