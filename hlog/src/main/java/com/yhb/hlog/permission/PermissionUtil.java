@@ -4,8 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import com.yhb.hlog.expose.HLog;
 
 /**权限*/
 public class PermissionUtil {
@@ -20,7 +18,6 @@ public class PermissionUtil {
     public static boolean hasPermission(Context context) {
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_DENIED) {
-                Log.e(HLog.TAG,"No read/write permissions for files");
                 return false;
             }
         }
