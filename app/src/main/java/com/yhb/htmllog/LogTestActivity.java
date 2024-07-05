@@ -18,6 +18,8 @@ import com.yhb.hlog.HLog;
 import com.yhb.hlog.callback.HLogCallback;
 import com.yhb.hlog.crash.HLogCrashCallback;
 import java.io.File;
+import java.util.Date;
+import java.util.List;
 
 /**HLog测试*/
 public class LogTestActivity extends AppCompatActivity {
@@ -50,7 +52,7 @@ public class LogTestActivity extends AppCompatActivity {
                 .crash(true)
                 .crashCallback(crashCallback)
                 .fileType(FileType.HTML)
-                .fileSplit(FileSplit.DAY)
+                .fileSplit(FileSplit.MODE_DAY)
                 .fileCharset("GBK")
                 .fileRootPath(Environment.getExternalStorageDirectory().getPath() + "/HtmlLog")
                 .fileMaxDay(3)
@@ -68,11 +70,16 @@ public class LogTestActivity extends AppCompatActivity {
                 .imgMargin(0);
 
         HLog.initialize(getApplicationContext(), config);
+
 //        HLog.clear();
+
         HLog.i("info","This is INFO msg");
         HLog.s("success","This is SUCCESS msg");
         HLog.w("waring","This is WARING msg");
         HLog.e("error","This is ERROR msg");
+
+//        HLog.e(BitmapFactory.decodeResource(getResources(), R.mipmap.img));
+
         HandlerThread handlerThread = new HandlerThread("yhb123456");
         handlerThread.start();
         Handler handler = new Handler(handlerThread.getLooper());
@@ -89,6 +96,8 @@ public class LogTestActivity extends AppCompatActivity {
                 });
             }
         });
+
+        List<File> fileList = HLog.find(new Date(System.currentTimeMillis()));
 
     }
 
