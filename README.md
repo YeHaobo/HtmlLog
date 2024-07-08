@@ -139,8 +139,8 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
 ```
 
 ### 日志写入回调
+#### 默认回调主线程
 ```java
-  //默认回调主线程
   HLog.i(BitmapFactory.decodeResource(getResources(), R.mipmap.img), new HLogCallback() {
     @Override
     public void onCallback(File logFile) {
@@ -148,10 +148,10 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
       //file:日志文件
     }
   });
-  //或者切换线程
-  //HLogLooper.MAIN: 回调在主线程（默认）
-  //HLogLooper.MAIN: 在调用线程回调（注意：调用线程必须已经开始循环（即已执行Looper.prepare()），否则将不会回调）
-  //HLogLooper.MAIN: 回调在HLog内部子线程
+```
+
+#### 使用HLogLooper切换线程
+```java
   HLog.i(BitmapFactory.decodeResource(getResources(), R.mipmap.img), new HLogCallback(HLogLooper.POSTING) {
     @Override
     public void onCallback(File logFile) {
@@ -160,7 +160,10 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
     }
   });
 ```
-
+**HLogLooper.MAIN**: 回调在主线程（默认）  
+**HLogLooper.POSTING**: 调用线程，在调用线程回调  （注意：若调用线程的Looper.myLooper()为空则会使用新的子线程回调）  
+**HLogLooper.HLOG**: 回调在HLog内部子线程  
+  
 ### 异常/崩溃捕获回调
 ```java
     HLogCrashCallback crashCallback = new HLogCrashCallback() {
