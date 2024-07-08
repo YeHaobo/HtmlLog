@@ -64,20 +64,18 @@ public class LogManager {
                     raf.seek(raf.length());
                     raf.write(logInfo.getBytes(config.fileCharset()));
                     raf.close();
-                    if(callback != null){
-                        Handler handler;
-                        switch (callback.logLooper()){
-                            case MAIN: handler = new Handler(Looper.getMainLooper()); break;
-                            case POSTING: handler = new Handler(postingLooper); break;
-                            case HLOG: handler = hlogHandler; break;
-                            default: handler = new Handler(Looper.getMainLooper()); break;
+                    if(callback == null) return;
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onCallback(logFile);
                         }
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                callback.onCallback(logFile);
-                            }
-                        });
+                    };
+                    switch (callback.logLooper()){
+                        case MAIN: new Handler(Looper.getMainLooper()).post(runnable);break;
+                        case POSTING: if(postingLooper != null) new Handler(postingLooper).post(runnable);else new Thread(runnable).start();break;
+                        case HLOG: hlogHandler.post(runnable);break;
+                        default: throw new Exception("HLogLooper " + callback.logLooper().name() + " is unknown");
                     }
                 }catch (Exception e){
                     e.printStackTrace();
