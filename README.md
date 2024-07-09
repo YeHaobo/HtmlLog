@@ -29,7 +29,7 @@ Android日志记录工具
   dependencies {
     ... ...
     implementation 'com.android.support:support-v4:28.0.0'//v4 AndroidX项目无需添加
-    implementation 'com.github.YeHaobo:HtmlLog:3.0'//HtmlLog
+    implementation 'com.github.YeHaobo:HtmlLog:3.1'//HtmlLog
     ... ...
   }
 ```
@@ -117,10 +117,10 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
   List<File> fileList2 = HLog.find(new Date(System.currentTimeMillis()));
 
   //获取LogType.ERROR类型的所有日志文件
-  List<File> fileList3 = HLog.find(LogType.ERROR);
+  List<File> fileList3 = HLog.find(LogMode.ERROR);
 
   //获取Date这一天内LogType.ERROR类型的所有日志文件
-  List<File> fileList4 = HLog.find(LogType.ERROR,new Date(System.currentTimeMillis()));
+  List<File> fileList4 = HLog.find(LogMode.ERROR, new Date(System.currentTimeMillis()));
 ```
 
 ### 清除日志
@@ -132,10 +132,10 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
   boolean isSuccess2 = HLog.clear(new Date(System.currentTimeMillis()));
 
   //清除LogType.ERROR类型的所有日志文件
-  boolean isSuccess3 = HLog.clear(LogType.ERROR);
+  boolean isSuccess3 = HLog.clear(LogMode.ERROR);
 
   //清除Date这一天内LogType.ERROR类型的所有日志文件
-  boolean isSuccess4 = HLog.clear(LogType.ERROR,new Date(System.currentTimeMillis()));
+  boolean isSuccess4 = HLog.clear(LogMode.ERROR,new Date(System.currentTimeMillis()));
 ```
 
 ### 日志写入回调
