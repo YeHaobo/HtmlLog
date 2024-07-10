@@ -29,7 +29,7 @@ Android日志记录工具
   dependencies {
     ... ...
     implementation 'com.android.support:support-v4:28.0.0'//v4 AndroidX项目无需添加
-    implementation 'com.github.YeHaobo:HtmlLog:3.1'//HtmlLog
+    implementation 'com.github.YeHaobo:HtmlLog:3.2'//HtmlLog
     ... ...
   }
 ```
@@ -161,7 +161,7 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
   });
 ```
 **HLogLooper.MAIN**: 回调在主线程（默认）  
-**HLogLooper.POSTING**: 在调用线程回调（注意：若调用线程的Looper.myLooper()为空则会使用新的子线程回调）  
+**HLogLooper.POSTING**: 回调在当前调用线程  
 **HLogLooper.HLOG**: 回调在HLog内部子线程  
   
 ### 异常/崩溃捕获回调
