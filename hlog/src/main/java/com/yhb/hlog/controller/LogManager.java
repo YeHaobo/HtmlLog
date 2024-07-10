@@ -46,14 +46,38 @@ public class LogManager {
 
     /**写日志*/
     public void write(final LogMode logMode, final String tag, final String msg, final Bitmap bitmap, final HLogCallback callback){
+        //打印
         if(config.debug()){
             Log.e(tag, infoParser.logcat(msg, bitmap));
         }
+        //权限
         if(!PermissionUtil.hasPermission(context)){
             Log.e(TAG, "HLog file read and write permission denied");
             return;
         }
-        final Looper postingLooper = Looper.myLooper();//调用线程looper
+        //线程
+        Handler handler = null;//外部调用线程handler
+        boolean looperQuit = false;//外部调用线程的looper是否需要终止（若外部线程没有looper时需要开启循环，则在执行结束后也需要停止looper循环，防止野线程无法销毁）
+        if(callback != null){
+            switch (callback.logLooper()){
+                case MAIN:
+                    handler = new Handler(Looper.getMainLooper());
+                    break;
+                case POSTING:
+                    if(Looper.myLooper() == null){
+                        Looper.prepare();
+                        looperQuit = true;
+                    }
+                    handler = new Handler(Looper.myLooper());
+                    break;
+                case HLOG:
+                    handler = new Handler(hlogHandler.getLooper());
+                    break;
+            }
+        }
+        final Handler callbackHandler = handler;
+        final boolean isLooperQuit = looperQuit;
+        //文件写入
         hlogHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -64,18 +88,17 @@ public class LogManager {
                     raf.seek(raf.length());
                     raf.write(logInfo.getBytes(config.fileCharset()));
                     raf.close();
-                    if(callback == null) return;
-                    Runnable runnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.onCallback(logFile);
-                        }
-                    };
-                    switch (callback.logLooper()){
-                        case MAIN: new Handler(Looper.getMainLooper()).post(runnable);break;
-                        case POSTING: if(postingLooper != null) new Handler(postingLooper).post(runnable);else new Thread(runnable).start();break;
-                        case HLOG: hlogHandler.post(runnable);break;
-                        default: throw new Exception("HLogLooper " + callback.logLooper().name() + " is unknown");
+                    if(callbackHandler != null){
+                        callbackHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Looper looper = Looper.myLooper();
+                                if(isLooperQuit && looper != null){
+                                    looper.quit();
+                                }
+                                callback.onCallback(logFile);
+                            }
+                        });
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -83,6 +106,10 @@ public class LogManager {
                 }
             }
         });
+        //启动looper（注意：loop();内部是个循环，其之后的代码不会执行，只有当调用quit()后循环才会终止，继续执行其后的代码）
+        if(callbackHandler != null && isLooperQuit){
+            Looper.loop();
+        }
     }
 
     /**获取日志*/
