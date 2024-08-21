@@ -29,7 +29,7 @@ Android日志记录工具
   dependencies {
     ... ...
     implementation 'com.android.support:support-v4:28.0.0'//v4 AndroidX项目无需添加
-    implementation 'com.github.YeHaobo:HtmlLog:3.2'//HtmlLog
+    implementation 'com.github.YeHaobo:HtmlLog:3.3'//HtmlLog
     ... ...
   }
 ```
@@ -150,9 +150,9 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
   });
 ```
 
-#### 使用HLogLooper切换线程
+#### 使用Looper切换线程
 ```java
-  HLog.i(BitmapFactory.decodeResource(getResources(), R.mipmap.img), new HLogCallback(HLogLooper.POSTING) {
+  HLog.i(BitmapFactory.decodeResource(getResources(), R.mipmap.img), new HLogCallback(Looper.myLooper()) {
     @Override
     public void onCallback(File logFile) {
       //当前回调在调用线程
@@ -160,9 +160,6 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
     }
   });
 ```
-**HLogLooper.MAIN**: 回调在主线程（默认）  
-**HLogLooper.POSTING**: 回调在当前调用线程  
-**HLogLooper.HLOG**: 回调在HLog内部子线程  
   
 ### 异常/崩溃捕获回调
 ```java
@@ -170,7 +167,6 @@ _注意：若使用FileType.TXT时，图片写入和日志文本样式的配置�
         @Override
         public boolean onCrashCallback(Thread t, Throwable e, File logFile) {
             //执行捕获异常/崩溃后的操作
-            //回调在HLog子线程中
             return true;//返回true时表示无需系统处理，返回false时则表示需要系统处理（即停止运行或崩溃）
         }
     };
