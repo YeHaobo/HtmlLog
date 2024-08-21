@@ -1,5 +1,7 @@
 package com.yhb.hlog.callback;
 
+import android.os.Handler;
+import android.os.Looper;
 import java.io.File;
 
 /**
@@ -12,22 +14,27 @@ public abstract class HLogCallback {
     /**回调（线程可自定义）*/
     public abstract void onCallback(File logFile);
 
-    /**回调线程的Looper模式*/
-    private HLogLooper logLooper;
+    /**回调线程*/
+    private Handler handler;
+
+    /**构造*/
+    public HLogCallback() {
+        this(null);
+    }
 
     /**构造（默认回调在主线程）*/
-    public HLogCallback() {
-        this(HLogLooper.MAIN);
+    public HLogCallback(Looper looper) {
+        this.handler = new Handler(looper != null ? looper : Looper.getMainLooper());
     }
 
-    /**构造（自定义回调线程模式）*/
-    public HLogCallback(HLogLooper logLooper) {
-        this.logLooper = logLooper;
-    }
-
-    /**获取线程模式*/
-    public HLogLooper logLooper() {
-        return logLooper;
+    /**切换线程回调*/
+    public void exeCallback(final File logFile) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                onCallback(logFile);
+            }
+        });
     }
 
 }

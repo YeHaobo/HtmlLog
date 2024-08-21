@@ -3,13 +3,14 @@ package com.yhb.htmllog;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
 import android.view.View;
 import android.widget.Toast;
-import com.yhb.hlog.callback.HLogLooper;
+
 import com.yhb.hlog.config.FileSplit;
 import com.yhb.hlog.config.FileType;
 import com.yhb.hlog.config.ImgAttr;
@@ -87,7 +88,7 @@ public class LogTestActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Log.e("1111",Thread.currentThread().getName());
-                HLog.s("success", "Test callback", new HLogCallback(HLogLooper.POSTING) {
+                HLog.s("success", "Test callback", new HLogCallback(Looper.myLooper()) {
                     @Override
                     public void onCallback(File logFile) {
                         Log.e("22222",Thread.currentThread().getName());

@@ -1,6 +1,7 @@
 package com.yhb.hlog.crash;
 
-import com.yhb.hlog.callback.HLogLooper;
+import android.os.Looper;
+
 import com.yhb.hlog.config.LogConfig;
 import com.yhb.hlog.HLog;
 import com.yhb.hlog.callback.HLogCallback;
@@ -47,7 +48,7 @@ public class HLogCrashHandler implements Thread.UncaughtExceptionHandler{
             printWriter.close();
             carshInfo = carshInfo + "\n" + writer.toString();
         }
-        HLog.e(TAG, carshInfo, new HLogCallback(HLogLooper.HLOG) {
+        HLog.e(TAG, carshInfo, new HLogCallback(Looper.myLooper()) {
             @Override
             public void onCallback(File logFile) {
                 if(crashCallback == null || !crashCallback.onCrashCallback(thread, throwable, logFile)){
